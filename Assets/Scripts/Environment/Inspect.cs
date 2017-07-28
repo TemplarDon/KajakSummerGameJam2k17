@@ -27,12 +27,15 @@ public class Inspect : MonoBehaviour {
 
     public void StartDialouge()
     {
-        dialougeStarted = true;
+        if (!dialougeStarted)
+        {
+            dialougeStarted = true;
 
-        PanelManager pmRef = GameObject.FindObjectOfType<PanelManager>();
+            PanelManager pmRef = GameObject.FindObjectOfType<PanelManager>();
 
-        pmRef.ActivatePanel("Dialouge");
-        pmRef.GetPanel("Dialouge").GetComponent<DialougeManager>().SetDialougeContent(dialougeArr);
+            pmRef.ActivatePanel("Dialouge");
+            pmRef.GetPanel("Dialouge").GetComponent<DialougeManager>().SetDialougeContent(dialougeArr);
+        }
     }
 
     void DoEndOfDialouge()
