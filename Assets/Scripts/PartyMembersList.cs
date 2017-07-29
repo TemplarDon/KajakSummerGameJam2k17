@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class PartyMembersList : MonoBehaviour {
 
-    public List<PartyMember> PartyList;
+    public List<PartyMember> PartyList = new List<PartyMember>();
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        PartyList.Add(new PartyMember());
+        PartyList.Add(new PartyMember());
+        PartyList.Add(new PartyMember());
+    }
 	
 	// Update is called once per frame
 	void Update () {

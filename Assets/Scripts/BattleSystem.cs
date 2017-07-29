@@ -18,12 +18,21 @@ public class BattleSystem : MonoBehaviour {
     public Slider AttackBar;
 
     [Space]
+    public int PlayerHealth;
+    public Text PlayerHealthTextDisplay;
+
+    [Space]
     public Transform[] SpawnLocations;      //Should always be 4 
+
+    private GameObject player_info;
 
     // Use this for initialization
     void Start()
     {
-        spawnTimer = 1 / (m_enemy.m_BPM / 60);  //Algo for how fast waves spawn
+        player_info = GameObject.Find("PlayerInfo");
+        PlayerHealth = player_info.GetComponent<PartyMembersList>().PartyList.Count;
+        spawnTimer = 1 / (m_enemy.m_BPM / 60);  //Algo for how frequent waves spawn
+        PlayerHealthTextDisplay.text = PlayerHealth.ToString();
     }
 
     // Update is called once per frame
@@ -86,6 +95,22 @@ public class BattleSystem : MonoBehaviour {
 
     public void FinishBattle()
     {
+        //Back to overworld?
+    }
 
+    //Player only ever takes one damage at a time
+    public void PlayerTakeDamage()
+    {
+        PlayerHealth--;
+        //Do some animation stuff I guess?
+        if (PlayerHealth == 0)
+            DoGameOver();
+
+        PlayerHealthTextDisplay.text = PlayerHealth.ToString();
+    }
+
+    public void DoGameOver()
+    {
+        //Back to previous water cooler point or something?
     }
 }

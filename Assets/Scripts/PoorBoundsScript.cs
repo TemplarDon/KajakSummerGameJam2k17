@@ -5,10 +5,11 @@ using UnityEngine;
 public class PoorBoundsScript : MonoBehaviour {
 
     public GameObject parent;
+    private BattleSystem bs;
 	// Use this for initialization
 	void Start () {
-		
-	}
+        bs = GameObject.Find("BattleManager").GetComponent<BattleSystem>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -22,13 +23,10 @@ public class PoorBoundsScript : MonoBehaviour {
 
     void OnTriggerExit2D(Collider2D coll)
     {
-        //Check if tried hitting or not
-        if (coll.GetComponent<NoteBlockScript>().attemptedHit)
-            Debug.Log("You Tried");
-        else
-            Debug.Log("You didn't even try");
+        //Check if player attempted to hit the note or not
+        if (!coll.GetComponent<NoteBlockScript>().attemptedHit)
+            bs.PlayerTakeDamage();
 
         parent.GetComponent<CharacterTriggerArea>().latest_entry = null;
-        //Destroy(latest_entry.transform.parent.gameObject);
     }
 }
