@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class DescriptionFill : MonoBehaviour {
 
+    public float typingDelay;
+
+    IEnumerator coroutine;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -17,11 +21,36 @@ public class DescriptionFill : MonoBehaviour {
 
     public void SetDescription(ItemElement itemElement)
     {
+        string text = "";
         if (itemElement.attachedItem.isKeyItem)
         {
-            GetComponent<Text>().text = itemElement.attachedItem.name + "(KEY ITEM): " + itemElement.attachedItem.description;
+            //GetComponent<Text>().text = itemElement.attachedItem.name + "(KEY ITEM): " + itemElement.attachedItem.description;
+
+            text = itemElement.attachedItem.name + "(KEY ITEM): " + itemElement.attachedItem.description;
         }
         else
-            GetComponent<Text>().text = itemElement.attachedItem.name + ": " + itemElement.attachedItem.description;
+        {
+            //GetComponent<Text>().text = itemElement.attachedItem.name + ": " + itemElement.attachedItem.description;
+
+            text = itemElement.attachedItem.name + ": " + itemElement.attachedItem.description;
+        }
+
+        if (coroutine != null)
+            StopCoroutine(coroutine);
+        
+        coroutine = AnimateText(text);
+        StartCoroutine(coroutine);
+    }
+
+    IEnumerator AnimateText(string str)
+    {
+        GetComponent<Text>().text = "";
+        foreach (char letter in str.ToCharArray())
+        {
+            GetComponentInChildren<Text>().text += letter;
+
+            yield return 0;
+            yield return new WaitForSeconds(typingDelay);
+        }
     }
 }
