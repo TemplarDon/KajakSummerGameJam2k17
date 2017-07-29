@@ -16,7 +16,6 @@ public class InspectTrigger : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.tag);
         if (other.tag == "Player")
         {
             other.GetComponent<PlayerController>().AddInspectObject(GetComponentInParent<Inspect>());
@@ -25,7 +24,6 @@ public class InspectTrigger : MonoBehaviour {
 
     void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log(other.tag);
         if (other.tag == "Player")
         {
             other.GetComponent<PlayerController>().RemoveInspectObject(GetComponentInParent<Inspect>());

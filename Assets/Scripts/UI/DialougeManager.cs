@@ -11,6 +11,8 @@ public class DialougeManager : MonoBehaviour {
     int dialougeIdx = 0;
     bool dialougeDone = true;
 
+    IEnumerator coroutine;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -29,7 +31,9 @@ public class DialougeManager : MonoBehaviour {
                 dialougeDone = true;
             }
 
-            StartCoroutine(AnimateText(dialougeToDisplay[dialougeIdx]));
+            StopCoroutine(coroutine);
+            coroutine = AnimateText(dialougeToDisplay[dialougeIdx]);
+            StartCoroutine(coroutine);
         }
 	}
 
@@ -40,7 +44,9 @@ public class DialougeManager : MonoBehaviour {
         dialougeIdx = 0;
         dialougeDone = false;
 
-        StartCoroutine(AnimateText(dialougeToDisplay[dialougeIdx]));
+        StopCoroutine(coroutine);
+        coroutine = AnimateText(dialougeToDisplay[dialougeIdx]);
+        StartCoroutine(coroutine);
     }
 
     public bool GetDialougeDone()

@@ -15,6 +15,7 @@ public class PopulateList : MonoBehaviour {
         {
             GameObject go = Instantiate(elementPrefab) as GameObject;
             go.GetComponent<ItemElement>().attachedItem = pair.Key;
+            go.GetComponent<ItemElement>().amount = pair.Value;
             go.transform.parent = transform;
             go.transform.localScale = new Vector3(1, 1, 1); // Hardcode to (1,1,1) cus when spawned normally it scaled up to 1.8
 
