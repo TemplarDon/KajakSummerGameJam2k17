@@ -1,31 +1,45 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BattleSystem : MonoBehaviour {
 
     public GameObject noteBlock;
 
     //Enemy stuff
+    [Space]
     public EnemyData m_enemy;
     float wave_counter = 0.0f;
     public float chanceToSpawnWave = 75.0f; //Might change to EnemyData side
+    private float spawnTimer;
 
+    [Space]
+    public Slider AttackBar;
+
+    [Space]
     public Transform[] SpawnLocations;      //Should always be 4 
-    bool m_playerTurn;
 
     // Use this for initialization
-    void Start() {
-
+    void Start()
+    {
+        spawnTimer = 1 / (m_enemy.m_BPM / 60);  //Algo for how fast waves spawn
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!m_playerTurn)
-            EnemyTurn();
-        else
-            PlayerTurn();
+        EnemyUpdate();
+        AttackInput();
+    }
+
+    void AttackInput()
+    {
+        if(Input.GetKeyDown("space"))
+        {
+            m_enemy.TakeDamage(AttackBar.value);    //What's a good value to deal with this?
+            AttackBar.value = 0;
+        }
     }
 
     void GenerateWave()
@@ -36,7 +50,6 @@ public class BattleSystem : MonoBehaviour {
 
         //Get how many notes this wave is gonna generate
         int numberOfNotes = Random.Range(1, m_enemy.m_maxNotes + 1);
-        Debug.Log("Number of notes: " + numberOfNotes);
 
         //See which areas should generate the notes
         List<int> areaToSpawn = new List<int>();
@@ -55,41 +68,24 @@ public class BattleSystem : MonoBehaviour {
         //Spawn
         for(int i = 0; i < areaToSpawn.Count; ++i)
         {
-            //Debug.Log(i + " " + areaToSpawn[i]);
             GameObject go = Instantiate(noteBlock, SpawnLocations[areaToSpawn[i]].position, Quaternion.identity);
-            go.GetComponent<NoteBlockScript>().SetSpeed(m_enemy.m_BPM * 2);
+            go.GetComponent<NoteBlockScript>().SetSpeed(m_enemy.m_noteSpeed * 2);
         }
     }
 
-    void PlayerTurn()
-    {
-
-    }
-
-    void EnemyTurn()
+    void EnemyUpdate()
     {
         wave_counter += Time.deltaTime;
-        if(wave_counter >= m_enemy.m_BPM / 60)
+
+        if(wave_counter >= spawnTimer)
         {
             GenerateWave();
             wave_counter = 0.0f;
         }
     }
 
-    void PlayerCombatInput()
+    public void FinishBattle()
     {
 
     }
-
-    void PlayerChoiceInput()
-    {
-
-    }
-
-    void DisplayEnemyUI()
-    {
-
-    }
-
-
 }
