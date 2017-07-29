@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour {
     public float inspectAngle= 30;
 
     //Player movement
-    private MovementScript Movement;
+    public MovementScript Movement;
 
     //Quick bool to freeze update
     public bool freeze = false;

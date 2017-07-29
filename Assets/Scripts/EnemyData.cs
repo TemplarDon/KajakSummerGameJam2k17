@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class EnemyData : MonoBehaviour {
@@ -18,25 +19,42 @@ public class EnemyData : MonoBehaviour {
     public Text display_name;
     public Slider health_bar;
 
+    [Space]
+    bool inBattle = false;
+
 	// Use this for initialization
 	void Start ()
     {
-        display_name.text = m_name;
+        if(display_name != null)
+            display_name.text = m_name;
         m_max_health = m_health;
         m_noteSpeed = m_BPM;
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        if(inBattle && SceneManager.GetActiveScene().name != "BattleTest")
+        {
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName("BattleTest"));
+            if (GameObject.Find("BattleManager") == null)
+                return;
+
+            GameObject.Find("BattleManager").GetComponent<BattleSystem>().m_enemy = this;
+            display_name = GameObject.Find("EnemyInfo").transform.GetChild(0).GetComponentInChildren<Text>();
+            health_bar = GameObject.Find("EnemyInfo").transform.GetChild(1).GetComponentInChildren<Slider>();
+        }
+    }
 
     public void TakeDamage(float damage)
     {
         m_health -= damage;
 
-        if (m_health <= 0)            
-            GameObject.Find("BattleManager").GetComponent<BattleSystem>().FinishBattle();
+        if (m_health <= 0)
+        {
+            GameObject.Find("BattleManager").GetComponent<BattleSystem>().FinishBattle(); //Remeber to delete the enemy in overworld
+            DestroySelf();
+            return;
+        }
         
         UpdateUI();
     }
@@ -44,5 +62,17 @@ public class EnemyData : MonoBehaviour {
     void UpdateUI()
     {
         health_bar.value = m_health / m_max_health;
+    }
+
+    public void StartBattle()
+    {
+        //SceneManager.LoadSceneAdditive("BattleTest");
+        SceneManager.LoadScene("BattleTest", LoadSceneMode.Additive);
+        inBattle = true;
+    }
+
+    public void DestroySelf()
+    {
+        Destroy(this.gameObject);
     }
 }
