@@ -5,6 +5,7 @@ using UnityEngine;
 public class NoteBlockScript : MonoBehaviour {
 
     public float m_speed = 1.0f;
+    public bool attemptedHit = false;
 
 	// Use this for initialization
 	void Start ()
