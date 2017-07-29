@@ -7,8 +7,10 @@ public class Inspect : MonoBehaviour {
 
     public UnityEvent endOfDialouge;
     public string[] dialougeArr;
+    public bool doActionOnce = true;
 
     bool dialougeStarted = false;
+    bool actionDone;
 
 	// Use this for initialization
 	void Start () {
@@ -49,7 +51,13 @@ public class Inspect : MonoBehaviour {
         PanelManager pmRef = GameObject.FindObjectOfType<PanelManager>();
         pmRef.DeactivatePanel("Dialouge");
 
-        endOfDialouge.Invoke();
+        if (!actionDone)
+        {
+            endOfDialouge.Invoke();
+
+            if (doActionOnce)
+                actionDone = true;
+        }
     }
 
     

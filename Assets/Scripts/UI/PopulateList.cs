@@ -28,7 +28,6 @@ public class PopulateList : MonoBehaviour {
             }
         }
 
-        Debug.Log("Populate");
         if (invRef)
         {
             foreach (KeyValuePair<Item, int> pair in invRef.GetDictionary())
