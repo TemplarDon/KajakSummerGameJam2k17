@@ -76,27 +76,27 @@ public class PlayerController : MonoBehaviour {
         float vertical = Input.GetAxis("Vertical");
 
         // up
-        if (vertical > 0 && vertical > horizontal)
+        if (vertical > 0 && Mathf.Abs(vertical) >= Mathf.Abs(horizontal))
         {
             currentDir = DIR.UP;
         }
         // down
-        else if (vertical < 0 && vertical < horizontal)
+        else if (vertical < 0 && Mathf.Abs(vertical) >= Mathf.Abs(horizontal))
         {
             currentDir = DIR.DOWN;
         }
         // left
-        else if (horizontal < 0 && horizontal < vertical)
+        else if (horizontal < 0 && Mathf.Abs(horizontal) >= Mathf.Abs(vertical))
         {
             currentDir = DIR.LEFT;
         }
         // right
-        else if (horizontal > 0 && horizontal > vertical)
+        else if (horizontal > 0 && Mathf.Abs(horizontal) >= Mathf.Abs(vertical))
         {
             currentDir = DIR.RIGHT;
         }
 
-        //Debug.Log(horizontal.ToString() + " " + vertical.ToString() + " " + currentDir.ToString());    
+        Debug.Log(horizontal.ToString() + " " + vertical.ToString() + " " + currentDir.ToString());    
     }
 
     void GetKeyInputs()
