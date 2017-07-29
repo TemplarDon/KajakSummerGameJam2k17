@@ -8,16 +8,18 @@ public class DialougeManager : MonoBehaviour {
     public float typingDelay;
     public Text dialougeText;
     public Text nameText;
+    //public AudioClip typingSound;
 
     string[] dialougeToDisplay;
     int dialougeIdx = 0;
     bool dialougeDone = true;
+    //AudioSource asRef;
 
     IEnumerator coroutine;
 
 	// Use this for initialization
 	void Start () {
-		
+        //asRef = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
