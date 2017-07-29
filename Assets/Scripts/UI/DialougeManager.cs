@@ -44,7 +44,6 @@ public class DialougeManager : MonoBehaviour {
         dialougeIdx = 0;
         dialougeDone = false;
 
-        StopCoroutine(coroutine);
         coroutine = AnimateText(dialougeToDisplay[dialougeIdx]);
         StartCoroutine(coroutine);
     }
