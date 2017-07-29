@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         Movement = GetComponent<MovementScript>();
+
+        GetComponent<PartyMembersList>().InstantiatePartyMembers();
     }
 
     // Update is called once per frame
