@@ -29,6 +29,13 @@ public class Inspect : MonoBehaviour {
 
     public void StartDialouge()
     {
+        if (!enabled)
+        {
+            // Unfreeze player
+            GameObject.Find("PlayerObject").GetComponent<PlayerController>().freeze = false;
+            return;
+        }
+
         if (!dialougeStarted)
         {
             dialougeStarted = true;
@@ -69,5 +76,11 @@ public class Inspect : MonoBehaviour {
     public void AddItem(string itemName)
     {
         GameObject.Find("PlayerObject").GetComponent<InventoryData>().AddItem(PersistentData.m_Instance.GetItemFromDatabase(itemName));
+    }
+
+    public void AddMember(PartyMember newMember)
+    {
+        GameObject.Find("PlayerObject").GetComponent<PartyMembersList>().AddMember(newMember);
+        enabled = false;
     }
 }

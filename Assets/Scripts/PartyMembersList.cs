@@ -26,8 +26,27 @@ public class PartyMembersList : MonoBehaviour {
         }
     }
 
+    public void AddMember(PartyMember newMember)
+    {
+        PartyList.Add(newMember);
+
+        if (PartyList.Count > 1)
+        {
+            PartyList[PartyList.Count - 1].GetComponent<FollowObject>().followObject = PartyList[PartyList.Count - 2].gameObject;
+        }
+        else
+        {
+            PartyList[PartyList.Count - 1].GetComponent<FollowObject>().followObject = gameObject;
+        }
+        PartyList[PartyList.Count - 1].GetComponent<Rigidbody2D>().mass = 1;
+    }
+
     public void InstantiatePartyMembers()
     {
+        PartyMember[] currentMembers = GetComponentsInChildren<PartyMember>();
+        foreach (PartyMember pm in currentMembers)
+            Destroy(pm);
+
         if (PartyList.Count >= 1)
         {
             GameObject go = Instantiate(PartyList[0].gameObject, transform.position, Quaternion.identity);

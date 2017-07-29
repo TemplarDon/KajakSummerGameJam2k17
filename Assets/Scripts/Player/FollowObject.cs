@@ -17,6 +17,9 @@ public class FollowObject : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        if (!followObject)
+            return;
+
         Vector3 dir = (transform.position - followObject.transform.position);
         if (dir.magnitude > startFollowDist)
         {

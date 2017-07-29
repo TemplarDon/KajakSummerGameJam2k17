@@ -18,6 +18,7 @@ public class InspectTrigger : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
+            Debug.Log(other.name);
             other.GetComponent<PlayerController>().AddInspectObject(GetComponentInParent<Inspect>());
         }
     }
