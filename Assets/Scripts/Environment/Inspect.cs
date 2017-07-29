@@ -36,7 +36,7 @@ public class Inspect : MonoBehaviour {
             PanelManager pmRef = GameObject.FindObjectOfType<PanelManager>();
 
             pmRef.ActivatePanel("Dialouge");
-            pmRef.GetPanel("Dialouge").GetComponent<DialougeManager>().SetDialougeContent(dialougeArr);
+            pmRef.GetPanel("Dialouge").GetComponent<DialougeManager>().SetDialougeContent(dialougeArr, gameObject.name);
         }
     }
 

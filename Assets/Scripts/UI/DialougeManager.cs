@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class DialougeManager : MonoBehaviour {
 
     public float typingDelay;
+    public Text dialougeText;
+    public Text nameText;
 
     string[] dialougeToDisplay;
     int dialougeIdx = 0;
@@ -37,9 +39,10 @@ public class DialougeManager : MonoBehaviour {
         }
 	}
 
-    public void SetDialougeContent(string[] content)
+    public void SetDialougeContent(string[] content, string sender)
     {
         dialougeToDisplay = content;
+        nameText.text = sender;
 
         dialougeIdx = 0;
         dialougeDone = false;
@@ -55,10 +58,10 @@ public class DialougeManager : MonoBehaviour {
 
     IEnumerator AnimateText(string str)
     {
-        GetComponentInChildren<Text>().text = "";
+        dialougeText.text = "";
         foreach (char letter in str.ToCharArray())
         {
-            GetComponentInChildren<Text>().text += letter;
+            dialougeText.text += letter;
 
             yield return 0;
             yield return new WaitForSeconds(typingDelay);
