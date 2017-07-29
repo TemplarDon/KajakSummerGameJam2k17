@@ -35,8 +35,10 @@ public class DescriptionFill : MonoBehaviour {
             text = itemElement.attachedItem.name + ": " + itemElement.attachedItem.description;
         }
 
+        if (coroutine != null)
+            StopCoroutine(coroutine);
+        
         coroutine = AnimateText(text);
-        StopCoroutine(coroutine);
         StartCoroutine(coroutine);
     }
 
