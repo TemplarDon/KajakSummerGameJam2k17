@@ -135,6 +135,7 @@ public class PlayerController : MonoBehaviour {
             if (angle <= inspectAngle)
             {
                 anInspect.StartDialouge();
+                freeze = true;
             }
         }
     }

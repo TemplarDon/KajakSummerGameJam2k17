@@ -42,10 +42,14 @@ public class Inspect : MonoBehaviour {
     {
         dialougeStarted = false;
 
-        endOfDialouge.Invoke();
+        // Unfreeze player
+        GameObject.Find("PlayerObject").GetComponent<PlayerController>().freeze = false;
 
+        // Switch off dialouge stuff
         PanelManager pmRef = GameObject.FindObjectOfType<PanelManager>();
         pmRef.DeactivatePanel("Dialouge");
+
+        endOfDialouge.Invoke();
     }
 
     
