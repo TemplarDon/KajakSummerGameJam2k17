@@ -83,4 +83,21 @@ public class Inspect : MonoBehaviour {
         GameObject.Find("PlayerObject").GetComponent<PartyMembersList>().AddMember(newMember);
         enabled = false;
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            Debug.Log(other.name);
+            other.GetComponent<PlayerController>().AddInspectObject(this);
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            other.GetComponent<PlayerController>().RemoveInspectObject(this);
+        }
+    }
 }
