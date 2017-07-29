@@ -15,6 +15,7 @@ public class PersistentData : MonoBehaviour {
 	public static PersistentData m_Instance;
 
     public EnemyData encounteredEnemy;
+    public List<Item> ItemDatabase = new List<Item>();
 
 	public bool InitialLoad = false;
 	public bool LoadFailed = false;
@@ -117,6 +118,19 @@ public class PersistentData : MonoBehaviour {
 			LoadFailed = true;
 		}
 	}
+
+    // Function to retreive item from database by name
+    public Item GetItemFromDatabase(string item)
+    {
+        foreach (Item anItem in ItemDatabase)
+        {
+            if (anItem.name == item)
+                return anItem;
+        }
+
+        Debug.Log("Unable to find item.");
+        return null;
+    }
 }
 
 [System.Serializable]

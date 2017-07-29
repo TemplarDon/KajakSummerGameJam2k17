@@ -51,6 +51,8 @@ public class Inspect : MonoBehaviour {
     
     public void TestEndDialouge()
     {
+        GameObject.Find("PlayerObject").GetComponent<InventoryData>().AddItem(PersistentData.m_Instance.GetItemFromDatabase("test1"), 3);
+
         Debug.Log("wow");
     }
 }

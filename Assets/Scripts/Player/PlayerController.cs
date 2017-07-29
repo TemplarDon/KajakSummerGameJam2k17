@@ -102,6 +102,18 @@ public class PlayerController : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Z))
             CheckSurroundings();
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            if (!FindObjectOfType<PanelManager>().GetPanel("Inventory").activeInHierarchy)
+            {
+                FindObjectOfType<PanelManager>().ActivatePanel("Inventory");
+            }
+            else
+            {
+                FindObjectOfType<PanelManager>().DeactivatePanel("Inventory");
+            }
+        }
     }
 
     // Called only when interact button is pressed
