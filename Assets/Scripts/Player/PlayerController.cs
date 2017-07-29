@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour {
     //Quick bool to freeze update
     public bool freeze = false;
 
+    public GameObject centerObject;
     public GameObject faceObject;
 
     // List to hold inspect objects nearby
@@ -66,7 +67,7 @@ public class PlayerController : MonoBehaviour {
         //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         float angle = (int)currentDir * -90;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        centerObject.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 	}
 
     void CalcDir()
