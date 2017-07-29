@@ -5,9 +5,13 @@ using UnityEngine.UI;
 
 public class DialougeManager : MonoBehaviour {
 
+    public float typingDelay;
+
     string[] dialougeToDisplay;
     int dialougeIdx = 0;
     bool dialougeDone = true;
+
+    IEnumerator coroutine;
 
 	// Use this for initialization
 	void Start () {
@@ -16,7 +20,6 @@ public class DialougeManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        GetComponentInChildren<Text>().text = dialougeToDisplay[dialougeIdx];
 
         if (Input.anyKeyDown)
         {
@@ -27,17 +30,38 @@ public class DialougeManager : MonoBehaviour {
                 dialougeIdx = 0;
                 dialougeDone = true;
             }
+
+            StopCoroutine(coroutine);
+            coroutine = AnimateText(dialougeToDisplay[dialougeIdx]);
+            StartCoroutine(coroutine);
         }
 	}
 
     public void SetDialougeContent(string[] content)
     {
         dialougeToDisplay = content;
+
+        dialougeIdx = 0;
         dialougeDone = false;
+
+        coroutine = AnimateText(dialougeToDisplay[dialougeIdx]);
+        StartCoroutine(coroutine);
     }
 
     public bool GetDialougeDone()
     {
         return dialougeDone;
+    }
+
+    IEnumerator AnimateText(string str)
+    {
+        GetComponentInChildren<Text>().text = "";
+        foreach (char letter in str.ToCharArray())
+        {
+            GetComponentInChildren<Text>().text += letter;
+
+            yield return 0;
+            yield return new WaitForSeconds(typingDelay);
+        } 
     }
 }

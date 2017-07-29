@@ -7,8 +7,10 @@ public class Inspect : MonoBehaviour {
 
     public UnityEvent endOfDialouge;
     public string[] dialougeArr;
+    public bool doActionOnce = true;
 
     bool dialougeStarted = false;
+    bool actionDone;
 
 	// Use this for initialization
 	void Start () {
@@ -27,27 +29,45 @@ public class Inspect : MonoBehaviour {
 
     public void StartDialouge()
     {
-        dialougeStarted = true;
+        if (!dialougeStarted)
+        {
+            dialougeStarted = true;
 
-        PanelManager pmRef = GameObject.FindObjectOfType<PanelManager>();
+            PanelManager pmRef = GameObject.FindObjectOfType<PanelManager>();
 
-        pmRef.ActivatePanel("Dialouge");
-        pmRef.GetPanel("Dialouge").GetComponent<DialougeManager>().SetDialougeContent(dialougeArr);
+            pmRef.ActivatePanel("Dialouge");
+            pmRef.GetPanel("Dialouge").GetComponent<DialougeManager>().SetDialougeContent(dialougeArr);
+        }
     }
 
     void DoEndOfDialouge()
     {
         dialougeStarted = false;
 
-        endOfDialouge.Invoke();
+        // Unfreeze player
+        GameObject.Find("PlayerObject").GetComponent<PlayerController>().freeze = false;
 
+        // Switch off dialouge stuff
         PanelManager pmRef = GameObject.FindObjectOfType<PanelManager>();
         pmRef.DeactivatePanel("Dialouge");
+
+        if (!actionDone)
+        {
+            endOfDialouge.Invoke();
+
+            if (doActionOnce)
+                actionDone = true;
+        }
     }
 
     
     public void TestEndDialouge()
     {
-        Debug.Log("wow");
+        GameObject.Find("PlayerObject").GetComponent<InventoryData>().AddItem(PersistentData.m_Instance.GetItemFromDatabase("test1"), 3);
+    }
+
+    public void AddItem(string itemName)
+    {
+        GameObject.Find("PlayerObject").GetComponent<InventoryData>().AddItem(PersistentData.m_Instance.GetItemFromDatabase(itemName));
     }
 }

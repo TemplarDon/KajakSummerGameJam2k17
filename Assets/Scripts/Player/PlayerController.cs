@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour {
     //Quick bool to freeze update
     public bool freeze = false;
 
+    public GameObject centerObject;
     public GameObject faceObject;
 
     // List to hold inspect objects nearby
@@ -66,7 +67,7 @@ public class PlayerController : MonoBehaviour {
         //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         float angle = (int)currentDir * -90;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        centerObject.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 	}
 
     void CalcDir()
@@ -75,22 +76,22 @@ public class PlayerController : MonoBehaviour {
         float vertical = Input.GetAxis("Vertical");
 
         // up
-        if (vertical > 0 && vertical > horizontal)
+        if (vertical > 0 && Mathf.Abs(vertical) >= Mathf.Abs(horizontal))
         {
             currentDir = DIR.UP;
         }
         // down
-        else if (vertical < 0 && vertical < horizontal)
+        else if (vertical < 0 && Mathf.Abs(vertical) >= Mathf.Abs(horizontal))
         {
             currentDir = DIR.DOWN;
         }
         // left
-        else if (horizontal < 0 && horizontal < vertical)
+        else if (horizontal < 0 && Mathf.Abs(horizontal) >= Mathf.Abs(vertical))
         {
             currentDir = DIR.LEFT;
         }
         // right
-        else if (horizontal > 0 && horizontal > vertical)
+        else if (horizontal > 0 && Mathf.Abs(horizontal) >= Mathf.Abs(vertical))
         {
             currentDir = DIR.RIGHT;
         }
@@ -102,6 +103,18 @@ public class PlayerController : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Z))
             CheckSurroundings();
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            if (!FindObjectOfType<PanelManager>().GetPanel("Inventory").activeInHierarchy)
+            {
+                FindObjectOfType<PanelManager>().ActivatePanel("Inventory");
+            }
+            else
+            {
+                FindObjectOfType<PanelManager>().DeactivatePanel("Inventory");
+            }
+        }
     }
 
     // Called only when interact button is pressed
@@ -122,8 +135,8 @@ public class PlayerController : MonoBehaviour {
 
             if (angle <= inspectAngle)
             {
-                Debug.Log("Looking");
                 anInspect.StartDialouge();
+                freeze = true;
             }
         }
     }
