@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour {
             currentDir = DIR.RIGHT;
         }
 
-        Debug.Log(horizontal.ToString() + " " + vertical.ToString() + " " + currentDir.ToString());    
+        //Debug.Log(horizontal.ToString() + " " + vertical.ToString() + " " + currentDir.ToString());    
     }
 
     void GetKeyInputs()

@@ -15,7 +15,7 @@ public class InventoryData : MonoBehaviour {
 	    // Init map with pre-exist items
         foreach (Item anItem in ItemDatabaseRef)
         {
-            ItemMap.Add(anItem, 0);
+            //ItemMap.Add(anItem, 0);
         }
 	}
 	
@@ -26,7 +26,14 @@ public class InventoryData : MonoBehaviour {
 
     public void AddItem(Item toAdd, int amount = 1)
     {
-        ItemMap[toAdd] += amount;
+        if (ItemMap.ContainsKey(toAdd))
+        {
+            ItemMap[toAdd] += amount;
+        }
+        else
+        {
+            ItemMap.Add(toAdd, amount);
+        }
     }
 
     public void UseItem(string str)
