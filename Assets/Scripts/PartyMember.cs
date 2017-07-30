@@ -16,16 +16,29 @@ public class PartyMember : MonoBehaviour {
     }
     DIR currentDir;
 
+    enum ANIM_STATE
+    {
+        IDLE = 0, //0
+        UP, //1
+        RIGHT, //2
+        DOWN, //3
+        LEFT, //4
+        ATTACK, //5
+    }
+    ANIM_STATE animState;
+    Animator animator;
+
 	// Use this for initialization
 	void Start ()
     {
-		
+        animator = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
         CalcDir();
+        UpdateAnim();
 	}
 
     public virtual void AddStrike()
@@ -49,30 +62,46 @@ public class PartyMember : MonoBehaviour {
         {
             Vector3 followPos = GetComponent<FollowObject>().followObject.transform.position;
 
-            float horizontalDiff = Mathf.Abs(transform.position.x - followPos.x);
-            float verticalDiff = Mathf.Abs(transform.position.y - followPos.y);
+            float horizontalDiff = (followPos.x - transform.position.x);
+            float verticalDiff = (followPos.y - transform.position.y);
 
-            if (horizontalDiff > 0 && horizontalDiff > verticalDiff)
-            {
-                currentDir = DIR.UP;
-            }
-            else if (horizontalDiff < 0 && horizontalDiff > verticalDiff)
-            {
-                currentDir = DIR.DOWN;
-            }
-            else if (verticalDiff < 0 && verticalDiff > horizontalDiff)
-            {
-                currentDir = DIR.LEFT;
-            }
-            else if (verticalDiff < 0 && verticalDiff > horizontalDiff)
+            if (horizontalDiff > 0 && Mathf.Abs(horizontalDiff) >= Mathf.Abs(verticalDiff))
             {
                 currentDir = DIR.RIGHT;
+                animState = ANIM_STATE.RIGHT;
+            }
+            else if (horizontalDiff < 0 && Mathf.Abs(horizontalDiff) >= Mathf.Abs(verticalDiff))
+            {
+                currentDir = DIR.LEFT;
+                animState = ANIM_STATE.LEFT;
+            }
+            else if (verticalDiff > 0 && Mathf.Abs(horizontalDiff) <= Mathf.Abs(verticalDiff))
+            {
+                currentDir = DIR.UP;
+                animState = ANIM_STATE.UP;
+            }
+            else if (verticalDiff < 0 && Mathf.Abs(horizontalDiff) <= Mathf.Abs(verticalDiff))
+            {
+                currentDir = DIR.DOWN;
+                animState = ANIM_STATE.DOWN;
+            }
+            else
+            {
+                //currentDir = DIR.DOWN;
+                //animState = ANIM_STATE.IDLE;
             }
 
+            Debug.Log(animState.ToString());
         }
         else
         {
 
         }
+    }
+
+    void UpdateAnim()
+    {
+        if (animator)
+            animator.SetInteger("state", (int)animState);
     }
 }
