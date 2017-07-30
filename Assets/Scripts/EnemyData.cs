@@ -22,6 +22,8 @@ public class EnemyData : MonoBehaviour {
     [Space]
     bool inBattle = false;
 
+    Animator animator;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -29,13 +31,15 @@ public class EnemyData : MonoBehaviour {
             display_name.text = m_name;
         m_max_health = m_health;
         m_noteSpeed = m_BPM;
+
+        animator = GetComponent<Animator>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if(inBattle && SceneManager.GetActiveScene().name != "BattleTest")
+        if(inBattle && SceneManager.GetActiveScene().name != "Battle2")
         {
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName("BattleTest"));
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName("Battle2"));
             if (GameObject.Find("BattleManager") == null)
                 return;
 
@@ -51,6 +55,8 @@ public class EnemyData : MonoBehaviour {
 
         if (m_health <= 0)
         {
+            animator.SetBool("isAttacking", false);
+
             GameObject.Find("BattleManager").GetComponent<BattleSystem>().FinishBattle(); //Remeber to delete the enemy in overworld
 
             // Remove enemy from list
@@ -71,8 +77,10 @@ public class EnemyData : MonoBehaviour {
     public void StartBattle()
     {
         //SceneManager.LoadSceneAdditive("BattleTest");
-        SceneManager.LoadScene("BattleTest", LoadSceneMode.Additive);
+        SceneManager.LoadScene("Battle2", LoadSceneMode.Additive);
         inBattle = true;
+
+        animator.SetBool("isAttacking", true);
     }
 
     public void DestroySelf()

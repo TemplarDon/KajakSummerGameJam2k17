@@ -117,8 +117,8 @@ public class PlayerController : MonoBehaviour {
         }
         else
         {
-            currentDir = DIR.DOWN;
-            animState = ANIM_STATE.IDLE;
+            //currentDir = DIR.DOWN;
+            //animState = ANIM_STATE.IDLE;
         }
 
         //Debug.Log(horizontal.ToString() + " " + vertical.ToString() + " " + currentDir.ToString());    
