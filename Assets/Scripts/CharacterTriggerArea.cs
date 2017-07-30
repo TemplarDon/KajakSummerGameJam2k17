@@ -27,7 +27,7 @@ public class CharacterTriggerArea : MonoBehaviour {
         {
             if (latest_entry != null)
             {
-                if (latest_entry.GetComponent<NoteBlockScript>().attemptedHit)
+                if (latest_entry.transform.parent.GetComponent<NoteBlockScript>().attemptedHit)
                     return;
 
                 if (Poor.bounds.Contains(latest_entry.transform.position))
@@ -41,7 +41,7 @@ public class CharacterTriggerArea : MonoBehaviour {
                 else
                 { displayText.text = "POOR"; slider.value += 0.01f; }
 
-                latest_entry.GetComponent<NoteBlockScript>().attemptedHit = true;
+                latest_entry.transform.parent.GetComponent<NoteBlockScript>().attemptedHit = true;
             }
             else
             { displayText.text = "MISS"; slider.value = slider.value * 0.5f; }
