@@ -14,6 +14,8 @@ public class PersistentData : MonoBehaviour {
 
 	public static PersistentData m_Instance;
 
+    public AudioManager adRef;
+
     public EnemyData encounteredEnemy;
     public List<Item> ItemDatabase = new List<Item>();
 

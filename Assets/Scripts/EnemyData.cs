@@ -76,6 +76,8 @@ public class EnemyData : MonoBehaviour {
 
     public void StartBattle()
     {
+        PersistentData.m_Instance.adRef.PlayBattle();
+
         //SceneManager.LoadSceneAdditive("BattleTest");
         SceneManager.LoadScene("BattleTest", LoadSceneMode.Additive);
         inBattle = true;

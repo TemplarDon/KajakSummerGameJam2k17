@@ -101,6 +101,8 @@ public class BattleSystem : MonoBehaviour {
 
     public void FinishBattle()
     {
+        PersistentData.m_Instance.adRef.PlayBGM();
+
         SceneManager.UnloadSceneAsync("BattleTest");
         //Back to overworld?
     }
