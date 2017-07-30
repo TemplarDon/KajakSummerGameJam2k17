@@ -12,6 +12,9 @@ public class TriggerKillzone : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D coll)
     {
+        if (coll.tag == "Player")
+            return;
+
         Destroy(coll.gameObject);
     }
 }
