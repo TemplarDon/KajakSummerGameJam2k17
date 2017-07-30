@@ -26,6 +26,6 @@ public class PlayerCamera : MonoBehaviour {
     {
         if (!free)
             //transform.position = (playerObject.transform.position + Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f))) * 0.5f + offset;
-            transform.position = Vector3.Lerp(playerObject.transform.position, (playerObject.transform.position + Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f))) * 0.5f + offset, lerpSpeed); 
+            transform.position = Vector3.Lerp(playerObject.transform.position, playerObject.transform.position + offset, lerpSpeed); 
     }
 }

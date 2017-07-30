@@ -37,16 +37,16 @@ public class EnemyData : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(inBattle && SceneManager.GetActiveScene().name != "Battle2")
-        {
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName("Battle2"));
-            if (GameObject.Find("BattleManager") == null)
-                return;
+        //if(inBattle && SceneManager.GetActiveScene().name != "Battle2")
+        //{
+        //    SceneManager.SetActiveScene(SceneManager.GetSceneByName("Battle2"));
+        //    if (GameObject.Find("BattleManager") == null)
+        //        return;
 
-            GameObject.Find("BattleManager").GetComponent<BattleSystem>().m_enemy = this;
-            display_name = GameObject.Find("EnemyInfo").transform.GetChild(0).GetComponentInChildren<Text>();
-            health_bar = GameObject.Find("EnemyInfo").transform.GetChild(1).GetComponentInChildren<Slider>();
-        }
+        //    GameObject.Find("BattleManager").GetComponent<BattleSystem>().m_enemy = this;
+        //    display_name = GameObject.Find("EnemyInfo").transform.GetChild(0).GetComponentInChildren<Text>();
+        //    health_bar = GameObject.Find("EnemyInfo").transform.GetChild(1).GetComponentInChildren<Slider>();
+        //}
     }
 
     public void TakeDamage(float damage)
@@ -55,14 +55,12 @@ public class EnemyData : MonoBehaviour {
 
         if (m_health <= 0)
         {
-            animator.SetBool("isAttacking", false);
-
             GameObject.Find("BattleManager").GetComponent<BattleSystem>().FinishBattle(); //Remeber to delete the enemy in overworld
 
             // Remove enemy from list
             GameObject.Find("PlayerObject").GetComponent<PlayerController>().RemoveInspectObject(this.GetComponentInChildren<Inspect>());
 
-           DestroySelf();
+            DestroySelf();
             return;
         }
         
@@ -71,16 +69,17 @@ public class EnemyData : MonoBehaviour {
 
     void UpdateUI()
     {
+        //display_name.text = m_name;
         health_bar.value = m_health / m_max_health;
     }
 
     public void StartBattle()
     {
-        PersistentData.m_Instance.adRef.PlayBattle();
-
         //SceneManager.LoadSceneAdditive("BattleTest");
         SceneManager.LoadScene("Battle2", LoadSceneMode.Additive);
         inBattle = true;
+
+        PersistentData.m_Instance.adRef.PlayBattle();
 
         animator.SetBool("isAttacking", true);
     }
@@ -88,5 +87,15 @@ public class EnemyData : MonoBehaviour {
     public void DestroySelf()
     {
         Destroy(this.gameObject);
+    }
+
+    public void SamuliFight()
+    {
+        SceneManager.LoadScene("BattleTest", LoadSceneMode.Additive);
+        inBattle = true;
+
+        PersistentData.m_Instance.adRef.PlayBattle();
+
+        animator.SetBool("isAttacking", true);
     }
 }

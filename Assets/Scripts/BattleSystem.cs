@@ -102,8 +102,10 @@ public class BattleSystem : MonoBehaviour {
     public void FinishBattle()
     {
         PersistentData.m_Instance.adRef.PlayBGM();
-
-        SceneManager.UnloadSceneAsync("BattleTest");
+        if(m_enemy.m_name == "TENTACLE")
+            SceneManager.UnloadSceneAsync("Battle2");
+        else if(m_enemy.m_name == "SAMULI")
+            SceneManager.UnloadSceneAsync("BattleTest");
         //Back to overworld?
     }
 

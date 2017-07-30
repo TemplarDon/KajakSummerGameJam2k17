@@ -6,12 +6,15 @@ public class CharacterContinuousMove : MonoBehaviour {
 
     public PartyMember.ANIM_STATE anim_state;
     public bool isEnemy = false;
+    public bool isSamuli = false;
 
 	// Use this for initialization
 	void Start () {
+        if (GetComponent<Animator>() != null)
 		GetComponent<Animator>().SetInteger("state", (int)PartyMember.ANIM_STATE.ATTACK);
 
         if(isEnemy) GetComponent<Animator>().SetBool("isAttacking", true);
+        if(isSamuli) GetComponent<Animator>().SetBool("isAttacking", true);
     }
 
     // Update is called once per frame
