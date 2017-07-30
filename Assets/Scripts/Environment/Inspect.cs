@@ -8,6 +8,7 @@ public class Inspect : MonoBehaviour {
     public UnityEvent endOfDialouge;
     public string[] dialougeArr;
     public bool doActionOnce = true;
+    public bool destroyWhenDone = false;
 
     bool dialougeStarted = false;
     bool actionDone;
@@ -65,6 +66,9 @@ public class Inspect : MonoBehaviour {
             if (doActionOnce)
                 actionDone = true;
         }
+
+        if (destroyWhenDone)
+            Destroy(transform.parent.gameObject);
     }
 
     
