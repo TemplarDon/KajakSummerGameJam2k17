@@ -9,6 +9,7 @@ public class ItemElement : MonoBehaviour {
     public int amount = 0;
 
     public Text amountText;
+    public Image image;
 
 	// Use this for initialization
 	void Start () {
@@ -22,8 +23,10 @@ public class ItemElement : MonoBehaviour {
 
         if (attachedItem.spriteName != "")
         {
-            string loadStr = "Assets/" + attachedItem.spriteName;
-            GetComponent<Image>().sprite = Resources.Load(loadStr) as Sprite;
+            string loadStr = "Items/" + attachedItem.spriteName;
+            Sprite loadedSprite = Resources.Load(loadStr.ToLower(), typeof(Sprite)) as Sprite;
+
+            image.sprite = loadedSprite;
         }
     }
 }
