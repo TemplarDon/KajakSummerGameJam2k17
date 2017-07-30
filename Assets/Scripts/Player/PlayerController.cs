@@ -124,6 +124,9 @@ public class PlayerController : MonoBehaviour {
     {
         foreach (Inspect anInspect in nearInspectObjects)
         {
+            if (!anInspect)
+                continue;
+
             GameObject inspectObject = anInspect.gameObject;
 
             // Do dir check (using face object)
