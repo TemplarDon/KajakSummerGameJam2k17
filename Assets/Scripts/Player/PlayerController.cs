@@ -31,11 +31,24 @@ public class PlayerController : MonoBehaviour {
     }
     DIR currentDir;
 
+    enum ANIM_STATE
+    {
+        IDLE = 0, //0
+        UP, //1
+        RIGHT, //2
+        DOWN, //3
+        LEFT, //4
+        ATTACK, //5
+    }
+    ANIM_STATE animState;
+    Animator animator;
+
     // Use this for initialization
     void Start () {
         Movement = GetComponent<MovementScript>();
 
         GetComponent<PartyMembersList>().InstantiatePartyMembers();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -48,6 +61,7 @@ public class PlayerController : MonoBehaviour {
         FaceMousePos();
         CalcDir();
         GetKeyInputs();
+        UpdateAnim();
 		
 	}
 
@@ -81,21 +95,30 @@ public class PlayerController : MonoBehaviour {
         if (vertical > 0 && Mathf.Abs(vertical) >= Mathf.Abs(horizontal))
         {
             currentDir = DIR.UP;
+            animState = ANIM_STATE.UP;
         }
         // down
         else if (vertical < 0 && Mathf.Abs(vertical) >= Mathf.Abs(horizontal))
         {
             currentDir = DIR.DOWN;
+            animState = ANIM_STATE.DOWN;
         }
         // left
         else if (horizontal < 0 && Mathf.Abs(horizontal) >= Mathf.Abs(vertical))
         {
             currentDir = DIR.LEFT;
+            animState = ANIM_STATE.LEFT;
         }
         // right
         else if (horizontal > 0 && Mathf.Abs(horizontal) >= Mathf.Abs(vertical))
         {
             currentDir = DIR.RIGHT;
+            animState = ANIM_STATE.RIGHT;
+        }
+        else
+        {
+            currentDir = DIR.DOWN;
+            animState = ANIM_STATE.IDLE;
         }
 
         //Debug.Log(horizontal.ToString() + " " + vertical.ToString() + " " + currentDir.ToString());    
@@ -146,6 +169,10 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    void UpdateAnim()
+    {
+        animator.SetInteger("state", (int)animState);
+    }
 
     public void AddInspectObject(Inspect toAdd)
     {

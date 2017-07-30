@@ -24,7 +24,7 @@ public class PoorBoundsScript : MonoBehaviour {
     void OnTriggerExit2D(Collider2D coll)
     {
         //Check if player attempted to hit the note or not
-        if (!coll.GetComponent<NoteBlockScript>().attemptedHit)
+        if (!coll.transform.parent.GetComponent<NoteBlockScript>().attemptedHit)
             bs.PlayerTakeDamage();
 
         parent.GetComponent<CharacterTriggerArea>().latest_entry = null;
