@@ -37,9 +37,9 @@ public class EnemyData : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(inBattle && SceneManager.GetActiveScene().name != "BattleTest")
+        if(inBattle && SceneManager.GetActiveScene().name != "Battle2")
         {
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName("BattleTest"));
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName("Battle2"));
             if (GameObject.Find("BattleManager") == null)
                 return;
 
@@ -79,7 +79,7 @@ public class EnemyData : MonoBehaviour {
         PersistentData.m_Instance.adRef.PlayBattle();
 
         //SceneManager.LoadSceneAdditive("BattleTest");
-        SceneManager.LoadScene("BattleTest", LoadSceneMode.Additive);
+        SceneManager.LoadScene("Battle2", LoadSceneMode.Additive);
         inBattle = true;
 
         animator.SetBool("isAttacking", true);
