@@ -28,5 +28,7 @@ public class FollowObject : MonoBehaviour {
             // Move
             this.transform.position = Vector2.MoveTowards(this.transform.position, point, followSpeed * Time.deltaTime);
         }
-	}
+
+        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, -0.01f);
+    }
 }

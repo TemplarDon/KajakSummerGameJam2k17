@@ -30,8 +30,8 @@ public class BattleSystem : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        player_info = GameObject.Find("PlayerInfo");
-        PlayerHealth = player_info.GetComponent<PartyMembersList>().PartyList.Count;
+        player_info = GameObject.Find("PlayerObject");
+        PlayerHealth = player_info.GetComponent<PartyMembersList>().PartyList.Count + 1;
         spawnTimer = 1 / (m_enemy.m_BPM / 60);  //Algo for how frequent waves spawn
         PlayerHealthTextDisplay.text = PlayerHealth.ToString();
     }

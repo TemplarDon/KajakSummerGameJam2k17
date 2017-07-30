@@ -52,7 +52,11 @@ public class EnemyData : MonoBehaviour {
         if (m_health <= 0)
         {
             GameObject.Find("BattleManager").GetComponent<BattleSystem>().FinishBattle(); //Remeber to delete the enemy in overworld
-            DestroySelf();
+
+            // Remove enemy from list
+            GameObject.Find("PlayerObject").GetComponent<PlayerController>().RemoveInspectObject(this.GetComponentInChildren<Inspect>());
+
+           DestroySelf();
             return;
         }
         
