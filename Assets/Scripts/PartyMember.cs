@@ -16,7 +16,7 @@ public class PartyMember : MonoBehaviour {
     }
     DIR currentDir;
 
-    enum ANIM_STATE
+    public enum ANIM_STATE
     {
         IDLE = 0, //0
         UP, //1

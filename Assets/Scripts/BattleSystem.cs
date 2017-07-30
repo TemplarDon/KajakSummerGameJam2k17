@@ -27,6 +27,8 @@ public class BattleSystem : MonoBehaviour {
 
     private GameObject player_info;
 
+    public Animator[] character_anims;
+
     // Use this for initialization
     void Start()
     {
@@ -47,6 +49,9 @@ public class BattleSystem : MonoBehaviour {
     {
         if(Input.GetKeyDown("space"))
         {
+            for(int i = 0; i < character_anims.Length; ++i)
+                character_anims[i].SetInteger("state", (int)PartyMember.ANIM_STATE.ATTACK);
+
             m_enemy.TakeDamage(AttackBar.value);    //What's a good value to deal with this?
             AttackBar.value = 0;
         }

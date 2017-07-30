@@ -30,9 +30,9 @@ public class CharacterTriggerArea : MonoBehaviour {
                 if (latest_entry.transform.parent.GetComponent<NoteBlockScript>().attemptedHit)
                     return;
 
-                if (Poor.bounds.Contains(latest_entry.transform.position))
-                    if (Okay.bounds.Contains(latest_entry.transform.position))
-                        if (Perfect.bounds.Contains(latest_entry.transform.position))
+                if (Poor.bounds.Contains(latest_entry.transform.parent.transform.position))
+                    if (Okay.bounds.Contains(latest_entry.transform.parent.transform.position))
+                        if (Perfect.bounds.Contains(latest_entry.transform.parent.transform.position))
                         { displayText.text = "PERFECT"; slider.value += 0.03f; }
                         else
                         { displayText.text = "OKAY"; slider.value += 0.02f; }
